@@ -5,6 +5,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const TableHeader = ["ID", "Title", "Price", "Category", "Action"];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,53 +24,48 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold text-center text-blue-500 mb-4">
-        Products
-      </h1>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-3xl font-bold text-center text-blue-500">Products</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="table-auto border-collapse border border-gray-300 w-full text-left">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 px-4 py-2">ID</th>
-              <th className="border border-gray-300 px-4 py-2">Title</th>
-              <th className="border border-gray-300 px-4 py-2">Price</th>
-              <th className="border border-gray-300 px-4 py-2">Category</th>
-              <th className="border border-gray-300 px-4 py-2">Action</th>
+        <table className="border border-gray-300">
+          <tr>
+            {TableHeader.map((header) => {
+              return (
+                <th className="bg-gray-300 border border-gray-300 px-4 py-2">
+                  {header}
+                </th>
+              );
+            })}
+          </tr>
+          {products.map((product) => (
+            <tr key={product.id} className="hover:bg-gray-100">
+              <td className="border border-gray-300 px-4 py-2">{product.id}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                {product.title}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                ${product.price}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                {product.category}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                <button
+                  className="bg-blue-500 text-white px-2 py-1 rounded"
+                  onClick={() =>
+                    navigate(`/product/${product.id}`, { state: product })
+                  }
+                >
+                  View
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td className="border border-gray-300 px-4 py-2">
-                  {product.id}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {product.title}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  ${product.price}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {product.category}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <button
-                    className="bg-blue-500 text-white px-2 py-1 rounded"
-                    onClick={() => navigate(`/product/${product.id}`)}
-                  >
-                    View
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          ))}
         </table>
       )}
     </div>
   );
 };
-
 export default ProductList;
