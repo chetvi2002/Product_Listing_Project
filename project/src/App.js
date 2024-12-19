@@ -4,6 +4,8 @@ import ProductList from "./components/ProductList";
 import ProductDetails from "./components/ProductDetails";
 
 function App() {
+  document.title = "Product List - React App";
+
   return (
     <BrowserRouter>
       <Routes>
