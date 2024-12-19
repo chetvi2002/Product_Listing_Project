@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,7 +56,10 @@ const ProductList = () => {
                   {product.category}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                  <button
+                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                    onClick={() => navigate(`/product/${product.id}`)}
+                  >
                     View
                   </button>
                 </td>
