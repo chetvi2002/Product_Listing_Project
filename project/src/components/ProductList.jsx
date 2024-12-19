@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TableHeader } from "../constant/constant";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const TableHeader = ["ID", "Title", "Price", "Category", "Action"];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -15,11 +15,9 @@ const ProductList = () => {
         setProducts(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 

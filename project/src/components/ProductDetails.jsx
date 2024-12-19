@@ -1,14 +1,13 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
+import { starArray } from "../constant/constant";
 
 const ProductDetails = () => {
   const { state: product } = useLocation();
   const navigate = useNavigate();
 
   if (!product) return <p>Product not found.</p>;
-
-  const starArray = [1, 2, 3, 4, 5];
 
   return (
     <div className="flex flex-col gap-4">
